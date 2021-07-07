@@ -34442,6 +34442,12 @@ public class FirOldFrontendDiagnosticsTestGenerated extends AbstractFirDiagnosti
             }
 
             @Test
+            @TestMetadata("experimentalAfterRelease.kt")
+            public void testExperimentalAfterRelease() throws Exception {
+                runTest("compiler/testData/diagnostics/testsWithStdLib/experimental/experimentalAfterRelease.kt");
+            }
+
+            @Test
             @TestMetadata("experimentalAnnotationOnConstructorProperty.kt")
             public void testExperimentalAnnotationOnConstructorProperty() throws Exception {
                 runTest("compiler/testData/diagnostics/testsWithStdLib/experimental/experimentalAnnotationOnConstructorProperty.kt");
