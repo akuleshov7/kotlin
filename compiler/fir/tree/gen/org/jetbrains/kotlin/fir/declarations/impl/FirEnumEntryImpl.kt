@@ -77,10 +77,6 @@ internal class FirEnumEntryImpl(
         return this
     }
 
-    override fun <D> transformReceiverTypeRef(transformer: FirTransformer<D>, data: D): FirEnumEntryImpl {
-        return this
-    }
-
     override fun <D> transformTypeParameters(transformer: FirTransformer<D>, data: D): FirEnumEntryImpl {
         typeParameters.transformInplace(transformer, data)
         return this
@@ -88,6 +84,10 @@ internal class FirEnumEntryImpl(
 
     override fun <D> transformStatus(transformer: FirTransformer<D>, data: D): FirEnumEntryImpl {
         status = status.transform(transformer, data)
+        return this
+    }
+
+    override fun <D> transformReceiverTypeRef(transformer: FirTransformer<D>, data: D): FirEnumEntryImpl {
         return this
     }
 

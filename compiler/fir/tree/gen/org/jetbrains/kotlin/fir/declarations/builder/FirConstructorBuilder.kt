@@ -42,9 +42,9 @@ open class FirConstructorBuilder : FirAbstractConstructorBuilder, FirAnnotationC
     override lateinit var origin: FirDeclarationOrigin
     override var attributes: FirDeclarationAttributes = FirDeclarationAttributes()
     override lateinit var returnTypeRef: FirTypeRef
-    override var receiverTypeRef: FirTypeRef? = null
     override val typeParameters: MutableList<FirTypeParameterRef> = mutableListOf()
     override lateinit var status: FirDeclarationStatus
+    override var receiverTypeRef: FirTypeRef? = null
     override var containerSource: DeserializedContainerSource? = null
     override var dispatchReceiverType: ConeKotlinType? = null
     override val valueParameters: MutableList<FirValueParameter> = mutableListOf()
@@ -61,9 +61,9 @@ open class FirConstructorBuilder : FirAbstractConstructorBuilder, FirAnnotationC
             origin,
             attributes,
             returnTypeRef,
-            receiverTypeRef,
             typeParameters,
             status,
+            receiverTypeRef,
             containerSource,
             dispatchReceiverType,
             valueParameters,
@@ -103,9 +103,9 @@ inline fun buildConstructorCopy(original: FirConstructor, init: FirConstructorBu
     copyBuilder.origin = original.origin
     copyBuilder.attributes = original.attributes.copy()
     copyBuilder.returnTypeRef = original.returnTypeRef
-    copyBuilder.receiverTypeRef = original.receiverTypeRef
     copyBuilder.typeParameters.addAll(original.typeParameters)
     copyBuilder.status = original.status
+    copyBuilder.receiverTypeRef = original.receiverTypeRef
     copyBuilder.containerSource = original.containerSource
     copyBuilder.dispatchReceiverType = original.dispatchReceiverType
     copyBuilder.valueParameters.addAll(original.valueParameters)

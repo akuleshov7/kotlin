@@ -45,8 +45,8 @@ class FirPropertyBuilder : FirDeclarationBuilder, FirTypeParametersOwnerBuilder,
     override lateinit var origin: FirDeclarationOrigin
     override var attributes: FirDeclarationAttributes = FirDeclarationAttributes()
     lateinit var returnTypeRef: FirTypeRef
-    var receiverTypeRef: FirTypeRef? = null
     lateinit var status: FirDeclarationStatus
+    var receiverTypeRef: FirTypeRef? = null
     var containerSource: DeserializedContainerSource? = null
     var dispatchReceiverType: ConeKotlinType? = null
     lateinit var name: Name
@@ -70,8 +70,8 @@ class FirPropertyBuilder : FirDeclarationBuilder, FirTypeParametersOwnerBuilder,
             origin,
             attributes,
             returnTypeRef,
-            receiverTypeRef,
             status,
+            receiverTypeRef,
             containerSource,
             dispatchReceiverType,
             name,
@@ -111,8 +111,8 @@ inline fun buildPropertyCopy(original: FirProperty, init: FirPropertyBuilder.() 
     copyBuilder.origin = original.origin
     copyBuilder.attributes = original.attributes.copy()
     copyBuilder.returnTypeRef = original.returnTypeRef
-    copyBuilder.receiverTypeRef = original.receiverTypeRef
     copyBuilder.status = original.status
+    copyBuilder.receiverTypeRef = original.receiverTypeRef
     copyBuilder.containerSource = original.containerSource
     copyBuilder.dispatchReceiverType = original.dispatchReceiverType
     copyBuilder.name = original.name

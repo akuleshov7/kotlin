@@ -45,8 +45,8 @@ interface FirAbstractConstructorBuilder : FirFunctionBuilder {
     abstract override var dispatchReceiverType: ConeKotlinType?
     abstract override val valueParameters: MutableList<FirValueParameter>
     abstract override var body: FirBlock?
-    abstract var receiverTypeRef: FirTypeRef?
     abstract val typeParameters: MutableList<FirTypeParameterRef>
+    abstract var receiverTypeRef: FirTypeRef?
     abstract var controlFlowGraphReference: FirControlFlowGraphReference?
     abstract var symbol: FirConstructorSymbol
     abstract var delegatedConstructor: FirDelegatedConstructorCall?

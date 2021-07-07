@@ -44,12 +44,12 @@ object FirOverrideChecker : FirClassChecker() {
 
         for (it in declaration.declarations) {
             if (it is FirSimpleFunction || it is FirProperty) {
-                checkMember(it as FirCallableMemberDeclaration, reporter, typeCheckerContext, firTypeScope, context)
+                checkMember(it as FirCallableDeclaration, reporter, typeCheckerContext, firTypeScope, context)
             }
         }
     }
 
-    private fun FirTypeScope.retrieveDirectOverriddenOf(member: FirCallableMemberDeclaration): List<FirCallableSymbol<*>> {
+    private fun FirTypeScope.retrieveDirectOverriddenOf(member: FirCallableDeclaration): List<FirCallableSymbol<*>> {
         return when (member) {
             is FirSimpleFunction -> {
                 processFunctionsByName(member.name) {}
@@ -64,7 +64,7 @@ object FirOverrideChecker : FirClassChecker() {
     }
 
     private fun ConeKotlinType.substituteAllTypeParameters(
-        overrideDeclaration: FirCallableMemberDeclaration,
+        overrideDeclaration: FirCallableDeclaration,
         baseDeclaration: FirCallableDeclaration,
         context: CheckerContext
     ): ConeKotlinType {
@@ -92,7 +92,6 @@ object FirOverrideChecker : FirClassChecker() {
         overriddenSymbols: List<FirCallableSymbol<*>>,
     ): FirCallableDeclaration? {
         for (overridden in overriddenSymbols) {
-            if (overridden.fir !is FirMemberDeclaration) continue
             val modality = (overridden.fir as FirMemberDeclaration).status.modality
             val isEffectivelyFinal = modality == null || modality == Modality.FINAL
             if (isEffectivelyFinal) {
@@ -109,13 +108,12 @@ object FirOverrideChecker : FirClassChecker() {
         return overriddenSymbols.find { (it.fir as? FirProperty)?.isVar == true }?.fir?.safeAs()
     }
 
-    private fun FirCallableMemberDeclaration.checkVisibility(
+    private fun FirCallableDeclaration.checkVisibility(
         reporter: DiagnosticReporter,
         overriddenSymbols: List<FirCallableSymbol<*>>,
         context: CheckerContext
     ) {
-        val visibilities = overriddenSymbols.mapNotNull {
-            if (it.fir !is FirMemberDeclaration) return@mapNotNull null
+        val visibilities = overriddenSymbols.map {
             it to (it.fir as FirMemberDeclaration).visibility
         }.sortedBy { pair ->
             // Regard `null` compare as Int.MIN so that we can report CANNOT_CHANGE_... first deterministically
@@ -135,7 +133,7 @@ object FirOverrideChecker : FirClassChecker() {
     }
 
     // See [OverrideResolver#isReturnTypeOkForOverride]
-    private fun FirCallableMemberDeclaration.checkReturnType(
+    private fun FirCallableDeclaration.checkReturnType(
         overriddenSymbols: List<FirCallableSymbol<*>>,
         typeCheckerContext: AbstractTypeCheckerContext,
         context: CheckerContext,
@@ -169,7 +167,7 @@ object FirOverrideChecker : FirClassChecker() {
     }
 
     private fun checkMember(
-        member: FirCallableMemberDeclaration,
+        member: FirCallableDeclaration,
         reporter: DiagnosticReporter,
         typeCheckerContext: AbstractTypeCheckerContext,
         firTypeScope: FirTypeScope,

@@ -86,9 +86,7 @@ object NodeConfigurator : AbstractFieldConfigurator<FirTreeBuilder>(FirTreeBuild
         callableDeclaration.configure {
             +field("receiverTypeRef", typeRef, nullable = true, withReplace = true).withTransform()
             +symbol("FirCallableSymbol", "out FirCallableDeclaration")
-        }
 
-        callableMemberDeclaration.configure {
             +field("containerSource", type(DeserializedContainerSource::class), nullable = true)
             +field("dispatchReceiverType", coneKotlinTypeType, nullable = true)
         }
