@@ -395,7 +395,7 @@ abstract class CommonCompilerArguments : CommonToolArguments() {
             val optInDeprecatedFqNames = optInDeprecated?.toList().orEmpty()
             if (optInDeprecatedFqNames.isNotEmpty()) {
                 collector.report(
-                    WARNING, "'-Xopt-in' is deprecated and will be removed in a future release, please use -opt-in instead"
+                    INFO, "'-Xopt-in' is deprecated and will be removed in a future release, please use -opt-in instead"
                 )
             }
             put(AnalysisFlags.useExperimental, useExperimentalFqNames + optInDeprecatedFqNames + optIn?.toList().orEmpty())
