@@ -777,6 +777,22 @@ object LightTreePositioningStrategies {
             return markElement(nodeToMark, startOffset, endOffset, tree, node)
         }
     }
+
+    val DECLARATION_WITH_BODY: LightTreePositioningStrategy = object : LightTreePositioningStrategy() {
+        override fun mark(
+            node: LighterASTNode,
+            startOffset: Int,
+            endOffset: Int,
+            tree: FlyweightCapableTreeStructure<LighterASTNode>
+        ): List<TextRange> {
+            val bracket = tree.findLastChildByType(node, KtTokens.RBRACE)
+            if (bracket != null) {
+                return markElement(bracket, startOffset, endOffset, tree, node)
+            } else {
+                return super.mark(node, startOffset, endOffset, tree)
+            }
+        }
+    }
 }
 
 fun FirSourceElement.hasValOrVar(): Boolean =

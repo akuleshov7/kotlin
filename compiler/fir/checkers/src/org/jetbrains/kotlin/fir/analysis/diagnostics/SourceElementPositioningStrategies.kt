@@ -257,4 +257,9 @@ object SourceElementPositioningStrategies {
         LightTreePositioningStrategies.IMPORT_LAST_NAME,
         PositioningStrategies.IMPORT_LAST_NAME
     )
+
+    val DECLARATION_WITH_BODY = SourceElementPositioningStrategy(
+        LightTreePositioningStrategies.DECLARATION_WITH_BODY,
+        PositioningStrategies.DECLARATION_WITH_BODY
+    )
 }
